@@ -78,8 +78,15 @@ void UArenaCharacterInventory::AddItem(AArenaItem* i_Item)
 
 	for (size_t RowIndex = 0; RowIndex < NumRows; ++RowIndex)
 	{
-		FArenaItemStatModifier* Row = Rows[RowIndex];
-		CharacterStats->UpdateStat(Row->StatName, Row->Value);
+		if (Rows[RowIndex]->StatName == "HP")
+		{
+			FArenaItemStatModifier* Row = Rows[RowIndex];
+		}
+		else
+		{
+			FArenaItemStatModifier* Row = Rows[RowIndex];
+			CharacterStats->UpdateStat(Row->StatName, Row->Value);
+		}
 	}
 }
 

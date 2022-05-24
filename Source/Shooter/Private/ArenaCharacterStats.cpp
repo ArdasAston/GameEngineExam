@@ -48,7 +48,7 @@ float UArenaCharacterStats::GetStat(const FName StatFName) const
 	return FLT_MIN;
 }
 
-void UArenaCharacterStats::UseStat(const FName StatFName, float useValue)
+void UArenaCharacterStats::AddStat(const FName StatFName, float addValue)
 {
 	FProperty* StatProperty = UReflectionUtilsFunctionLibrary::RetrieveProperty(this, StatFName);
 	if (StatProperty != nullptr)
@@ -57,7 +57,22 @@ void UArenaCharacterStats::UseStat(const FName StatFName, float useValue)
 		if (FloatProperty != nullptr)
 		{
 			const float currentValue = FloatProperty->GetPropertyValue_InContainer(this);
-			const float newValue = useValue > currentValue ? 0 : currentValue - useValue;
+			const float newValue = addValue > currentValue ? 0 : currentValue + addValue;
+			FloatProperty->SetPropertyValue_InContainer(this, newValue);
+		}
+	}
+}
+
+void UArenaCharacterStats::DecrementStat(const FName StatFName, float decrementValue)
+{
+	FProperty* StatProperty = UReflectionUtilsFunctionLibrary::RetrieveProperty(this, StatFName);
+	if (StatProperty != nullptr)
+	{
+		FFloatProperty* FloatProperty = CastField<FFloatProperty>(StatProperty);
+		if (FloatProperty != nullptr)
+		{
+			const float currentValue = FloatProperty->GetPropertyValue_InContainer(this);
+			const float newValue = decrementValue > currentValue ? 0 : currentValue - decrementValue;
 			FloatProperty->SetPropertyValue_InContainer(this, newValue);
 		}
 	}

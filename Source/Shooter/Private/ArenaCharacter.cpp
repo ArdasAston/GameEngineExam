@@ -23,7 +23,7 @@ void AArenaCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	bool bIsAnItem = OtherActor->IsA<AArenaItem>();
 
-	if (bIsAnItem)
+	if (bIsAnItem && !this->ActorHasTag("Enemy"))
 	{
 		AArenaItem* Item = Cast<AArenaItem>(OtherActor);
 		InventoryComponent->AddItem(Item);

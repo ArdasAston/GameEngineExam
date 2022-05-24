@@ -20,14 +20,15 @@ public:
 	float GetStat(const FName StatFName) const;
 
 	UFUNCTION(BlueprintCallable)
-	void UseStat(const FName StatFName, float useValue);
+	void AddStat(const FName StatFName, float addValue);
+
+	UFUNCTION(BlueprintCallable)
+	void DecrementStat(const FName StatFName, float decrementValue);
 
 protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Stats", meta = (ClampMin = "0.0", ClampMax = "100.0", UIMin = "0.0", UIMax = "100.0"))
 	float HP = 100.0f;
-	UPROPERTY(EditAnywhere, Category = "Stats", meta = (ClampMin = "10.0", ClampMax = "30.0", UIMin = "0.0", UIMax = "30.0"))
-	float Damage = 10.0f;
-	UPROPERTY(EditAnywhere, Category = "Stats", meta = (ClampMin = "1.0", ClampMax = "3.0", UIMin = "0.0", UIMax = "3.0"))
+	UPROPERTY(EditAnywhere, Category = "Stats", meta = (ClampMin = "1.0", ClampMax = "2.0", UIMin = "0.0", UIMax = "2.0"))
 	float Speed = 1.0f;
 };
